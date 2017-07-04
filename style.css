@@ -1,0 +1,573 @@
+/*
+Theme Name: Tanyas Christmas
+Theme URI: http://tanyaschristmas.test
+Description: Theme for a Christmas promo
+Version: 1.0
+Author: Mark Duwe
+Author URI: http://prydonian.digital
+Tags:
+License: Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
+License URI: http://creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US
+Text Domain:
+*/
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+	transform: translateZ(0);
+}
+body {
+	background: #555;
+}
+.mobile {
+	display: none;
+}
+p, h1, h2, h3, h4, h5, h6 {
+}
+.alignleft {
+	float: left;
+	margin: 0.375em 1.75em 1.75em 0;
+}
+.alignright {
+	float: right;
+	margin: 0.375em 0 1.75em 1.75em;
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin: 0 auto 1.75em;
+}
+.columns.advent, .columns.content {
+	height: 100vh;
+	position: relative;
+}
+.qube-perspective {
+	-webkit-perspective: 900px;
+	-moz-perspective: 900px;
+	perspective: 900px;
+	width: 6vw;
+	float: left;
+	margin: 2em;
+	cursor: pointer;
+}
+.qube-preserve3d {
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+.qube {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 100%;
+	height: 100%;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+	.qube > * {
+		background: #666;
+		background-size: 100%;
+	}
+
+	.qube > *,
+	.qube > *:after {
+		position: absolute;
+		left: 0;
+		top: 0;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.qube > *:after {
+		pointer-events: none; /* Prevent shadows from interfering with DOM mouse/touch events */
+		display: block;
+		content: "";
+	}
+
+		.qube.no-shading > *:after {
+			display: none;
+		}
+
+		/* If your cube is not semi-transparent and you are not displaying the inside of your cube, make it .solid to optimize rendering. Using this class is optional. */
+		.qube.solid > *,
+		.qube.solid > *:after {
+			-webkit-backface-visibility: hidden;
+			-moz-backface-visibility: hidden;
+			backface-visibility: hidden;
+		}
+
+		.qube.textured > * {
+			background-size: 300%;
+		}
+
+	.qube > .front,
+	.qube.faces > *:nth-child(1) {
+		/* This is the real breakthrough: We can't just translateZ(-100%) because Z has no dimension value for calculating a percentage, however we can be sneaky and rotate such that we can translate on an axis that *does* have real dimensions, and then we can rotate back! */
+		-webkit-transform: rotateX(90deg) translateY(50%) rotateX(-90deg);
+		-moz-transform: rotateX(90deg) translateY(50%) rotateX(-90deg);
+		transform: rotateX(90deg) translateY(50%) rotateX(-90deg);
+	}
+
+		.qube > .front:after,
+		.qube.faces > *:nth-child(1):after {
+		}
+
+		.qube.textured > .front,
+		.qube.textured.faces > *:nth-child(1) {
+			background-position: 0 0;
+		}
+
+	.qube > .back,
+	.qube.faces > *:nth-child(3) {
+		-webkit-transform: rotateY(180deg) rotateX(90deg) translateY(50%) rotateX(-90deg);
+		-moz-transform: rotateY(180deg) rotateX(90deg) translateY(50%) rotateX(-90deg);
+		transform: rotateY(180deg) rotateX(90deg) translateY(50%) rotateX(-90deg);
+	}
+
+		.qube > .back:after,
+		.qube.faces > *:nth-child(3):after {
+			background: rgba(0, 0, 0, 0.6);
+		}
+
+		.qube.x-axis > .back,
+		.qube.x-axis.faces > *:nth-child(3) {
+			-webkit-transform: rotateX(90deg) translateY(-50%) rotateX(90deg);
+			-moz-transform: rotateX(90deg) translateY(-50%) rotateX(90deg);
+			transform: rotateX(90deg) translateY(-50%) rotateX(90deg);
+		}
+
+		.qube.textured > .back,
+		.qube.textured.faces > *:nth-child(3) {
+			background-position: -100% 0;
+		}
+
+	.qube > .left,
+	.qube.faces > *:nth-child(2) {
+		-webkit-transform: translateX(-50%) rotateY(-90deg);
+		-moz-transform: translateX(-50%) rotateY(-90deg);
+		transform: translateX(-50%) rotateY(-90deg);
+	}
+
+		.qube > .left:after,
+		.qube.faces > *:nth-child(2):after {
+			background: rgba(0, 0, 0, 0.5);
+		}
+
+		.qube.textured > .left,
+		.qube.textured.faces > *:nth-child(2) {
+			background-position: -200% 0;
+		}
+
+	.qube > .right,
+	.qube.faces > *:nth-child(4) {
+		-webkit-transform: translateX(50%) rotateY(90deg);
+		-moz-transform: translateX(50%) rotateY(90deg);
+		transform: translateX(50%) rotateY(90deg);
+	}
+
+		.qube > .right:after,
+		.qube.faces > *:nth-child(4):after {
+			background: rgba(0, 0, 0, 0.3);
+		}
+
+		.qube.textured > .right,
+		.qube.textured.faces > *:nth-child(4) {
+			background-position: 0 -100%;
+		}
+
+	.qube > .top,
+	.qube.faces > *:nth-child(5) {
+		-webkit-transform: translateY(-50%) rotateX(90deg);
+		-moz-transform: translateY(-50%) rotateX(90deg);
+		transform: translateY(-50%) rotateX(90deg);
+	}
+
+		.qube > .top:after,
+		.qube.faces > *:nth-child(5):after {
+			background: rgba(0, 0, 0, 0.2);
+		}
+
+		.qube.textured > .top,
+		.qube.textured.faces > *:nth-child(5) {
+			background-position: -100% -100%;
+		}
+
+	.qube > .bottom,
+	.qube.faces > *:nth-child(6) {
+		-webkit-transform: translateY(50%) rotateX(-90deg);
+		-moz-transform: translateY(50%) rotateX(-90deg);
+		transform: translateY(50%) rotateX(-90deg);
+	}
+
+		.qube > .bottom:after,
+		.qube.faces > *:nth-child(6):after {
+			background: rgba(0, 0, 0, 0.7);
+		}
+
+		.qube.textured > .bottom,
+		.qube.textured.faces > *:nth-child(6) {
+			background-position: -200% -100%;
+		}
+#snow {
+	position: fixed;
+	display: block;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+#snow iframe, #wp-custom-header, #snow video {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+#snow img {
+	width: 100%;
+	height: 100%;
+}
+.wp-custom-header-video-button, .screen-reader-text {
+	display: none;
+}
+svg {
+	width: 100%;
+	height: 100%;
+}
+.circles {
+	blend-mode: multiply;
+}
+.advent {
+	position: relative;
+	background: rgba(255,255,255,0.35);
+	box-shadow: 0 0 7px rgba(255,255,255,0.35);
+}
+.columns.content {
+	overflow: auto;
+}
+.qube-perspective {
+	opacity: 0.75;
+}
+.qube-perspective.current {
+	opacity: 1;
+}
+.cube01 > * {
+	text-align: center;
+	line-height: 5.5vw;
+	font-weight: 700;
+	font-size: 40px;
+	color: #fff;
+	text-shadow: 0 0 1px #000;
+}
+.cube01 {
+	width: 100%;
+	padding-top: 100%;
+	transition: transform .5s ease-in-out;
+}
+.current .cube01 {
+	transform: rotateX(12deg) rotateY(12deg);
+}
+.inactive .cube01 {
+	transform: rotateX(6deg) rotateY(6deg);
+}
+.active {
+	transition: transform .5s ease-in-out;
+}
+.qube-perspective.up .cube01 {
+	transform: translateY(-1000px);
+}
+.qube-perspective.up {
+	cursor: default;
+}
+.current .cube01:hover {
+	transform: rotateX(35deg) rotateY(35deg);
+}
+.inactive .cube01:hover {
+	transform: rotateX(12deg) rotateY(12deg);
+}
+.cube01.up {
+	transform: rotateX(-360deg) rotateY(-360deg) translateY(-1000px);
+}
+.container {
+	padding: 2em;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+.container .contentBoxes {
+	position: absolute;
+	left: 0;
+	padding: 0 4em 0 5em;
+	width: 100%;
+	height: auto;
+	top: 50%;
+	transform: translateY(-50%);
+}
+#mainStuff {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+}
+#mainStuff .button {
+	display: block !important;
+	width: 100%;
+	font-size: 1.5rem;
+	text-shadow: 2px 2px 1px rgba(0,0,0,0.5);
+	color: #fff;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+}
+#mainStuff .button:hover {
+	display: block !important;
+	width: 100%;
+	box-shadow: 4px 4px 4px rgba(0,0,0,0.5);
+}
+.callout {
+	position: absolute;
+	padding: 2em;
+	overflow: auto;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	z-index: 1001;
+	transform: translateY(-2000px);
+	transition: 1s ease-in-out;
+}
+.callout.opened {
+	transform: translateY(0);
+}
+#paperContent  {
+	font-weight: 400;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+#leftTitle > * {
+	transition: all 1s ease-in-out;
+}
+#leftContent .pulse {
+	margin-top: 1em;
+}
+#leftTitle {
+	margin-bottom: 0.25rem;
+}
+#leftTitle .number {
+	font-size: 6rem;
+	margin: 0 0 -10px 0;
+	font-weight: 700;
+	line-height: 1;
+	transition: 0 ease-in-out;
+}
+#leftTitle .post-title {
+	font-size: 4rem;
+	transition: 0 ease-in-out;
+}
+#firstContent #stuff {
+	overflow: hidden;
+	transition: all 0.5s ease-in-out;
+	transform-origin: left top;
+}
+#leftContent .pulse i {
+	font-size: 6rem;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	cursor: pointer;
+	transition: 0 ease-in-out;
+}
+#leftTitle, #firstContent {
+	margin: 0 auto;
+	width: 100%;
+	display: none;
+	transition: all 1s ease-in-out;
+}
+#leftTitle.open {
+	position: relative !important;
+	top: 0;
+	bottom: auto;
+}
+#leftTitle.open #stuff {
+	display: none;
+}
+#leftTitle.open .number {
+	font-size: 2rem;
+	margin: 0;
+	font-weight: 700;
+	line-height: 1;
+	display: inline-block;
+}
+#leftTitle.open .post-title {
+	font-size: 1.5rem;
+	line-height: 1;
+	display: inline-block;
+}
+#leftTitle.open .pulse {
+	display: none;
+}
+#titleContainer {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+#title, #tagline {
+	text-transform: uppercase;
+	z-index: 0;
+	color: #fff;
+	font-size: 2rem;
+	font-weight: 500;
+	letter-spacing: 5px;
+	position: absolute;
+	top: 50%;
+}
+#mainContent {
+	display: none;
+}
+#title {
+    left: 0;
+	transform-origin: left top 0;
+    transform: rotate(270deg) translateX(-50%);
+    text-align: center;
+    display: block;
+    z-index: 0;
+	text-shadow: -2px -2px 1px rgba(0,0,0,0.95);
+}
+#tagline {
+    right: 0;
+	transform-origin: right top 0;
+    transform: rotate(90deg) translateX(50%);
+    text-align: center;
+    display: block;
+    z-index: 0;
+	text-shadow: 2px 2px 1px rgba(0,0,0,0.75);
+}
+.normal {
+	margin-bottom: 2em;
+}
+
+@media screen and (max-width: 1450px) {
+	.container .contentBoxes {
+		padding: 0 1.5em;
+	}
+}
+@media screen and (max-width: 1125px) {
+	#title, #tagline {
+		display: none;
+	}
+	.container .contentBoxes {
+		padding: 0 2em;
+	}
+	.container {
+		padding: 2em 0.5em;
+	}
+	.qube-perspective {
+		-webkit-perspective: 900px;
+		-moz-perspective: 900px;
+		perspective: 900px;
+		width: 6vw;
+		float: left;
+		margin: 1em 1.25em;
+		cursor: pointer;
+	}
+	.cube01 {
+		width: 100%;
+		padding-top: 100%;
+	}
+	.cube01 > * {
+		line-height: 6vw;
+		font-size: 20px;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.mobile {
+		display: block;
+		margin-bottom: 2em;
+	}
+	.desktop {
+		display: none;
+	}
+	.container {
+		padding: 2em 0.5em;
+	}
+
+	.container .contentBoxes {
+		padding: 0 0.35em;
+	}
+	.qube-perspective {
+		-webkit-perspective: 900px;
+		-moz-perspective: 900px;
+		perspective: 900px;
+		width: 16.5vw;
+		float: left;
+		margin: 0 0.65em 1em 0.65em;
+		cursor: pointer;
+	}
+	.cube01 {
+		width: 100%;
+		padding-top: 100%;
+	}
+	.cube01 > * {
+		line-height: 16vw;
+		font-size: 30px;
+	}
+	#leftTitle .number {
+		font-size: 3rem;
+	}
+	#leftTitle .post-title {
+		font-size: 1.75rem;
+	}
+	#leftTitle .pulse i {
+		font-size: 3rem;
+	}
+	#leftTitle .pulse {
+		margin-top: 1em;
+	}
+}
+
+@-moz-keyframes snow {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px;
+  }
+  100% {
+    background-position: 500px 1000px, 0 400px, 0 300px;
+  }
+}
+
+@-webkit-keyframes snow {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px;
+  }
+  100% {
+    background-position: 500px 1000px, 0 400px, 0 300px;
+  }
+}
+
+@keyframes snow {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px;
+  }
+  100% {
+    background-position: 500px 1000px, 0 400px, 0 300px;
+  }
+}
