@@ -1360,7 +1360,7 @@ select {
   .close-button, .close-button.medium {
     right: 1rem;
     top: 0.5rem;
-    font-size: 2em;
+    font-size: 0.8em;
     line-height: 1; }
 
 .button-group {
@@ -2810,7 +2810,6 @@ html.is-reveal-open body {
     margin-bottom: 0; }
   @media print, screen and (min-width: 40em) {
     .reveal {
-      width: 600px;
       max-width: 62.5rem; } }
   @media print, screen and (min-width: 40em) {
     .reveal .reveal {

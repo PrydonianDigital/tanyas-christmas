@@ -17,8 +17,9 @@
 		set_post_thumbnail_size( 870, 250, array( 'center', 'top') );
 		add_image_size( 'top', 1130, 500, array( 'center', 'center') );
 		add_image_size( 'tiny', 60, 60);
+		add_image_size( 'right', 410, 250);
 		add_image_size( 'related', 265, 199, array( 'center', 'center') );
-		add_image_size( 'squared', 265, 265, array( 'center', 'top') );
+		add_image_size( 'squared', 356, 356 );
 		add_image_size( 'shop', 355, 222 );
 		add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
 		add_theme_support( 'title-tag' );
@@ -33,7 +34,7 @@
 		load_theme_textdomain( 'tc', get_template_directory() . '/language' );
 		add_theme_support( 'custom-logo', array(
 			'height'			=> 150,
-			'width'			 => 500,
+			'width'			 => 350,
 			'flex-width' => true,
 		) );
 	}
@@ -53,15 +54,19 @@
 	// Register JS
 	function tc_js() {
 		wp_enqueue_script( 'jq', get_template_directory_uri() . '/js/vendor/jquery.js', false, '2.2.4', true );
+		wp_enqueue_script( 'flip', get_template_directory_uri() . '/js/vendor/flip.min.js', false, '1.1.2', true );
 		wp_enqueue_script( 'what', get_template_directory_uri() . '/js/vendor/what-input.js', false, '6.3.1', true );
 		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/js/vendor/foundation.min.js', false, '6.3.1', true );
 		wp_enqueue_script( 'tc', get_template_directory_uri() . '/js/interface.js', false, '1', true );
 		wp_enqueue_script( 'jq' );
+		wp_enqueue_script( 'flip' );
 		wp_enqueue_script( 'what' );
 		wp_enqueue_script( 'foundation' );
 		wp_enqueue_script( 'tc' );
 	}
 	add_action( 'wp_enqueue_scripts', 'tc_js' );
+
+	add_filter( 'gform_init_scripts_footer', '__return_true' );
 
 	add_action( 'cmb2_init', 'post_page' );
 	function post_page() {
@@ -71,6 +76,21 @@
 			'title'		 => 'Post Header Section',
 			'object_types'  => array( 'post' ),
 			'show_in_rest'	=> true,
+		) );
+		$post_group = $cmb_post->add_field( array(
+			'id' => $prefix . 'post',
+			'type' => 'group',
+			'options'	 => array(
+				'group_title'   => __( 'Image {#}', 'bci' ),
+				'add_button'	=> __( 'Add New Image', 'bci' ),
+				'remove_button' => __( 'Remove Image', 'bci' ),
+				'sortable'	  => true,
+			),
+		) );
+		$cmb_post->add_group_field( $post_group, array(
+			'name' => 'Icon  Image',
+			'id'   => $prefix . 'img',
+			'type' => 'file',
 		) );
 		$cmb_post->add_field(array(
 			'name' => 'Title',
@@ -115,44 +135,58 @@
 			'title'		 => 'Page Sections',
 			'object_types'  => array( 'page' ),
 			'show_in_rest'	=> true,
-			'show_on'	  => array( 'key' => 'page-template', 'value' => 'page-home.php' ),
 		) );
-
-		$home_group = $cmb_home->add_field( array(
-			'id' => $prefix . 'home',
-			'type' => 'group',
-			'options'	 => array(
-				'group_title'   => __( 'Section {#}', 'bci' ),
-				'add_button'	=> __( 'Add New Section', 'bci' ),
-				'remove_button' => __( 'Remove Section', 'bci' ),
-				'sortable'	  => true,
-			),
-		) );
-		$cmb_home->add_group_field( $home_group, array(
+		$cmb_home->add_field( array(
 			'name' => 'CTA',
 			'id'   => $prefix . 'header',
 			'type' => 'text',
 		) );
-		$cmb_home->add_group_field( $home_group, array(
+		$cmb_home->add_field( array(
 			'name' => 'Title',
 			'id'   => $prefix . 'title',
 			'type' => 'text',
 		) );
-		$cmb_home->add_group_field( $home_group, array(
-			'name' => 'Content',
-			'id'   => $prefix . 'stuff',
-			'type' => 'wysiwyg',
-		) );
-		$cmb_home->add_group_field( $home_group, array(
+		$cmb_home->add_field( array(
 			'name' => 'Background',
 			'id'   => $prefix . 'bg',
 			'type' => 'colorpicker',
 			'default' => '#ffffff',
 		) );
-		$cmb_home->add_group_field( $home_group, array(
+		$cmb_home->add_field( array(
 			'name' => 'Text Colour',
 			'id'   => $prefix . 'col',
 			'type' => 'colorpicker',
 			'default' => '#111111',
 		) );
 	}
+
+	function ch_theme_customiser( $wp_customize ) {
+
+		$wp_customize->add_panel( 'ch_schema', array(
+			'priority'			=> 30,
+			'theme_supports'	=> '',
+			'title'				=> __( 'Tanyas Options', 'ch' ),
+			'capability'		=> 'edit_theme_options',
+		) );
+
+		$wp_customize->add_section( 'ch_schema_section' , array(
+			'title'				=> __( 'Video', 'ch' ),
+			'priority'			=> 30,
+			'description'		=> 'Shows a Background Video',
+			'panel'				=> 'ch_schema',
+		) );
+		$wp_customize->add_setting( 'ch_mp4' );
+		$wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'ch_mp4', array(
+			'label'				=> __( 'MP4', 'ch' ),
+			'section'			=> 'ch_schema_section',
+			'settings'			=> 'ch_org',
+		) ) );
+		$wp_customize->add_setting( 'ch_webm' );
+		$wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'ch_webm', array(
+			'label'				=> __( 'WebM', 'ch' ),
+			'section'			=> 'ch_schema_section',
+			'settings'			=> 'ch_webm',
+		) ) );
+
+	}
+	add_action( 'customize_register', 'ch_theme_customiser' );
