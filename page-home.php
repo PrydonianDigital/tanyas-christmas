@@ -9,11 +9,13 @@
 
 		<h2 class="turn"><i class="fa fa-arrow-right"></i></h2>
 
-		<div class="contentBoxes row align-top">
+		<div class="contentBoxes row align-middle" id="calendar">
 
 			<div class="small-12 columns text-center animated fadeInDownBig mobile">
 				<?php the_custom_logo(); ?>
 			</div>
+
+			<div id="title" class="small-12 text-center animated fadeInDownBig"><?php echo bloginfo('name'); ?></div>
 
 			<?php
 				$args = array(
@@ -42,11 +44,16 @@
 				?>
 			</div>
 
-		<?php endwhile; ?>
+			<?php endwhile; ?>
 
-		<?php endif; ?>
+			<?php endif; ?>
+
+			<div id="tagline" class="small-12 text-center animated fadeInUpBig"><?php echo bloginfo('description'); ?></div>
+
 		</div>
+
 		<div class="reveal full" id="boxModal" data-reveal data-animation-in="scale-in-up" data-animation-out="scale-out-down"></div>
+
 	</div>
 
 	<div class="small-12 medium-6 columns content back">
@@ -57,7 +64,7 @@
 
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-				<div class="row animated fadeInDownBig desktop">
+				<div class="row animated fadeInDownBig desktop" style="-webkit-animation-delay: 4.5s;-moz-animation-delay: 4.5s;-ms-animation-delay: 4.5s;animation-delay: 4.5s;">
 					<div class="small-12 columns text-center">
 						<?php the_custom_logo(); ?>
 					</div>
@@ -74,7 +81,7 @@
 					if ( $child_pages->have_posts() ) : while ( $child_pages->have_posts() ) : $child_pages->the_post();
 				?>
 
-						<div class="small-6 columns animated fadeInDownBig text-center" style="-webkit-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID);; ?>s;-moz-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;-ms-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID);; ?>s;animation-delay: <?php echo get_post_field( 'menu_order', $post->ID);; ?>s;">
+						<div class="small-6 columns animated fadeInDownBig text-center icon" style="-webkit-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;-moz-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;-ms-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;">
 							<h4 class="pageTitle" data-page="<?php the_ID(); ?>">
 								<?php the_post_thumbnail('right'); ?>
 								<?php the_title(); ?>

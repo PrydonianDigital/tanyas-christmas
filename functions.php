@@ -115,6 +115,18 @@
 			'default' => '#111111',
 		) );
 		$cmb_post->add_field(array(
+			'name' => 'Link Colour',
+			'id'   => $prefix . 'link',
+			'type' => 'colorpicker',
+			'default' => '#111111',
+		) );
+		$cmb_post->add_field(array(
+			'name' => 'Link Hover/Visted Colour',
+			'id'   => $prefix . 'linkv',
+			'type' => 'colorpicker',
+			'default' => '#111111',
+		) );
+		$cmb_post->add_field(array(
 			'name' => 'Coming Soon Message',
 			'id'   => $prefix . 'coming',
 			'type' => 'textarea',
@@ -158,6 +170,18 @@
 			'type' => 'colorpicker',
 			'default' => '#111111',
 		) );
+		$cmb_home->add_field(array(
+			'name' => 'Link Colour',
+			'id'   => $prefix . 'link',
+			'type' => 'colorpicker',
+			'default' => '#111111',
+		) );
+		$cmb_home->add_field(array(
+			'name' => 'Link Hover/Visited Colour',
+			'id'   => $prefix . 'linkv',
+			'type' => 'colorpicker',
+			'default' => '#111111',
+		) );
 	}
 
 	function ch_theme_customiser( $wp_customize ) {
@@ -170,22 +194,29 @@
 		) );
 
 		$wp_customize->add_section( 'ch_schema_section' , array(
-			'title'				=> __( 'Video', 'ch' ),
+			'title'				=> __( 'Options', 'ch' ),
 			'priority'			=> 30,
-			'description'		=> 'Shows a Background Video',
+			'description'		=> 'For uploading an MP3',
 			'panel'				=> 'ch_schema',
 		) );
-		$wp_customize->add_setting( 'ch_mp4' );
-		$wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'ch_mp4', array(
-			'label'				=> __( 'MP4', 'ch' ),
+		$wp_customize->add_setting( 'ch_mp3' );
+		$wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'ch_mp3', array(
+			'label'				=> __( 'MP3', 'ch' ),
 			'section'			=> 'ch_schema_section',
-			'settings'			=> 'ch_org',
+			'settings'			=> 'ch_mp3',
 		) ) );
-		$wp_customize->add_setting( 'ch_webm' );
-		$wp_customize->add_control( new WP_Customize_Upload_Control( $wp_customize, 'ch_webm', array(
-			'label'				=> __( 'WebM', 'ch' ),
+
+		$wp_customize->add_section( 'ch_color' , array(
+			'title'				=> __( 'Title Colour', 'ch' ),
+			'priority'			=> 30,
+			'description'		=> 'For uploading an MP3',
+			'panel'				=> 'ch_schema',
+		) );
+		$wp_customize->add_setting( 'ch_color' );
+		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'ch_color', array(
+			'label'				=> __( 'Title/Text Colour', 'ch' ),
 			'section'			=> 'ch_schema_section',
-			'settings'			=> 'ch_webm',
+			'settings'			=> 'ch_color',
 		) ) );
 
 	}
