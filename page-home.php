@@ -5,13 +5,63 @@
 	get_header();
 ?>
 
-	<div class="small-12 medium-6 columns advent front">
+	<div class="small-12 medium-6 large-order-2 columns content front">
 
-		<h2 class="turn"><i class="fa fa-arrow-right"></i></h2>
+		<h2 class="turn right"><i class="fa fa-arrow-right"></i></h2>
+
+		<div id="mainStuff">
+
+			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+				<div class="row animated zoomIn" style="-webkit-animation-delay: 4.5s;-moz-animation-delay: 4.5s;-ms-animation-delay: 4.5s;animation-delay: 4.5s;">
+					<div class="small-12 columns text-center">
+						<?php the_custom_logo(); ?>
+					</div>
+				</div>
+				<div class="row normal text-center align-middle">
+				<?php
+					$child_pages_query_args = array(
+					    'post_type'		=> 'page',
+					    'post_parent'	=> $post->ID,
+					    'orderby'		=> 'menu_order',
+					    'order'			=> 'ASC'
+					);
+					$child_pages = new WP_Query( $child_pages_query_args );
+					if ( $child_pages->have_posts() ) : while ( $child_pages->have_posts() ) : $child_pages->the_post();
+				?>
+
+						<div class="small-6 columns animated fadeInDownBig text-center icon" style="-webkit-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;-moz-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;-ms-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;">
+							<h4 class="pageTitle" data-page="<?php the_ID(); ?>">
+								<?php the_post_thumbnail('right'); ?>
+								<?php the_title(); ?>
+							</h4>
+							</div>
+
+				<?php endwhile; ?>
+
+				<?php endif; ?>
+
+				<?php wp_reset_postdata(); ?>
+				</div>
+			<?php endwhile; ?>
+
+			<?php endif; ?>
+
+			<div class="row animated fadeInUpBig">
+				<div class="small-12" id="christmasCountdown"></div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="small-12 medium-6 large-order-1 columns advent back">
+
+		<h2 class="turn left"><i class="fa fa-arrow-left"></i></h2>
 
 		<div class="contentBoxes row align-middle" id="calendar">
 
-			<div class="small-12 columns text-center animated fadeInDownBig mobile">
+			<div class="small-12 columns text-center animated zoomIn mobile">
 				<?php the_custom_logo(); ?>
 			</div>
 
@@ -52,53 +102,7 @@
 
 		</div>
 
-		<div class="reveal full" id="boxModal" data-reveal data-animation-in="scale-in-up" data-animation-out="scale-out-down"></div>
-
-	</div>
-
-	<div class="small-12 medium-6 columns content back">
-
-		<h2 class="turn left"><i class="fa fa-arrow-left"></i></h2>
-
-		<div id="mainStuff">
-
-			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-
-				<div class="row animated fadeInDownBig desktop" style="-webkit-animation-delay: 4.5s;-moz-animation-delay: 4.5s;-ms-animation-delay: 4.5s;animation-delay: 4.5s;">
-					<div class="small-12 columns text-center">
-						<?php the_custom_logo(); ?>
-					</div>
-				</div>
-				<div class="row normal text-center align-middle">
-				<?php
-					$child_pages_query_args = array(
-					    'post_type'		=> 'page',
-					    'post_parent'	=> $post->ID,
-					    'orderby'		=> 'menu_order',
-					    'order'			=> 'ASC'
-					);
-					$child_pages = new WP_Query( $child_pages_query_args );
-					if ( $child_pages->have_posts() ) : while ( $child_pages->have_posts() ) : $child_pages->the_post();
-				?>
-
-						<div class="small-6 columns animated fadeInDownBig text-center icon" style="-webkit-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;-moz-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;-ms-animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;animation-delay: <?php echo get_post_field( 'menu_order', $post->ID); ?>s;">
-							<h4 class="pageTitle" data-page="<?php the_ID(); ?>">
-								<?php the_post_thumbnail('right'); ?>
-								<?php the_title(); ?>
-							</h4>
-							</div>
-
-				<?php endwhile; ?>
-
-				<?php endif; ?>
-
-				<?php wp_reset_postdata(); ?>
-				</div>
-			<?php endwhile; ?>
-
-			<?php endif; ?>
-
-		</div>
+		<div class="reveal full" id="boxModal" data-reveal data-animation-in="scale-in-up" data-animation-out="scale-out-down" data-reset-on-close="true"></div>
 
 	</div>
 

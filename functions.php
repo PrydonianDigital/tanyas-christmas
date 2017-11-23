@@ -42,9 +42,9 @@
 
 	// Register Style
 	function tc_css() {
-		wp_register_style( 'grid', get_template_directory_uri() . '/css/foundation.css', false, '6.3.1' );
-		wp_register_style( 'animate', get_template_directory_uri() . '/css/animate.css', false, '3.5.2' );
-		wp_enqueue_script( 'fontawesome', 'https://use.fontawesome.com/bfa003177d.js', false, '4.7.0', false );
+		wp_register_style( 'grid', get_template_directory_uri() . '/css/foundation.css', false, '6.3.1.2' );
+		wp_register_style( 'animate', get_template_directory_uri() . '/css/animate.css', false, '3.5.2.2' );
+		wp_enqueue_script( 'fontawesome', 'https://use.fontawesome.com/bfa003177d.js', false, '4.7.0.2', false );
 		wp_enqueue_style( 'fontawesome' );
 		wp_enqueue_style( 'grid' );
 		wp_enqueue_style( 'animate' );
@@ -53,11 +53,11 @@
 
 	// Register JS
 	function tc_js() {
-		wp_enqueue_script( 'jq', get_template_directory_uri() . '/js/vendor/jquery.js', false, '2.2.4', true );
-		wp_enqueue_script( 'flip', get_template_directory_uri() . '/js/vendor/flip.min.js', false, '1.1.2', true );
-		wp_enqueue_script( 'what', get_template_directory_uri() . '/js/vendor/what-input.js', false, '6.3.1', true );
-		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/js/vendor/foundation.min.js', false, '6.3.1', true );
-		wp_enqueue_script( 'tc', get_template_directory_uri() . '/js/interface.js', false, '1', true );
+		wp_enqueue_script( 'jq', get_template_directory_uri() . '/js/vendor/jquery.js', false, '2.2.4.2', true );
+		wp_enqueue_script( 'flip', get_template_directory_uri() . '/js/vendor/flip.min.js', false, '1.1.2.2', true );
+		wp_enqueue_script( 'what', get_template_directory_uri() . '/js/vendor/what-input.js', false, '6.3.1.2', true );
+		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/js/vendor/foundation.min.js', false, '6.3.1.2', true );
+		wp_enqueue_script( 'tc', get_template_directory_uri() . '/js/interface.js', false, '1.4', true );
 		wp_enqueue_script( 'jq' );
 		wp_enqueue_script( 'flip' );
 		wp_enqueue_script( 'what' );
